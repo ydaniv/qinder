@@ -1,10 +1,10 @@
 /**
  * Client for Google Drive API.
  *
- * @class Drive
+ * @class Backend
  * @see https://developers.google.com/drive/v3/web/quickstart/js
  */
-export default class Drive {
+export default class Backend {
     constructor (config) {
         //super(config);
         this.files = [];
@@ -18,8 +18,8 @@ export default class Drive {
 
         // Authorization scopes required by the API; multiple scopes can be
         // included, separated by spaces.
-        this.scopes = config.scopes ||
-            'https://www.googleapis.com/auth/drive.photos.readonly';
+        this.scopes = config.DRIVE_CLIENT_SCOPES ||
+            'https://www.googleapis.com/auth/drive.readonly';
 
         this.ready = new Promise((resolve, reject) => {
             this._init_resolve = resolve;
@@ -83,11 +83,26 @@ export default class Drive {
     /**
      * Get file list.
      */
-    listFiles (size=100) {
+    listFolders (size=100) {
         return gapi.client.drive.files.list({
-            'spaces': 'photos',
-            'pageSize': size,
-            'fields': 'nextPageToken, files(id, name, thumbnailLink)'
+            pageSize: size,
+            fields: 'nextPageToken,' +
+                    ' files(id, name, iconLink, appProperties)',
+            q: "mimeType='application/vnd.google-apps.folder'"
+        }).then(response => {
+            return response.result.files;
+        });
+    }
+
+    /**
+     * Get file list.
+     */
+    listFiles (folder, size=100) {
+        return gapi.client.drive.files.list({
+            pageSize: size,
+            fields: 'nextPageToken,' +
+                      ' files(id, name, mimeType, appProperties, iconLink, thumbnailLink)',
+            q: "'" + folder + "' in parents"
         }).then(response => {
             return response.result.files;
         });
