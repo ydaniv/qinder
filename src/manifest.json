@@ -1,6 +1,6 @@
 {
-  "name": "Preact PWA",
-  "short_name": "Preact PWA",
+  "name": "Qinder",
+  "short_name": "Qinder",
   "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
