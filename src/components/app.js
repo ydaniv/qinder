@@ -3,20 +3,21 @@ import {Router} from 'preact-router';
 
 import Header from './header';
 import Galleries from './galleries';
-import Drive from '../lib/backends/drive';
+import Gallery from './gallery';
+import Backend from '../lib/backends/drive';
 import config from './config';
 
 export default class App extends Component {
     constructor (props) {
         super(props);
 
-        this.drive_client =  new Drive(config);
+        this.drive_client =  new Backend(config);
 
         this.drive_client.ready.then((signed_in) => {
             this.setState({ logged_in: signed_in });
 
             if ( signed_in ) {
-                this.drive_client.listFiles().then(files => {
+                this.drive_client.listFolders().then(files => {
                     this.setState({ files: files });
                 });
             }
@@ -38,7 +39,9 @@ export default class App extends Component {
                         signIn={this.drive_client.signIn}/>
                 <Router onChange={this.handleRoute}>
                     <Galleries path="/"
-                               images={this.state.files}/>
+                               folders={this.state.files}/>
+                    <Gallery path="/:folder_id/"
+                             backend={this.drive_client}/>
                 </Router>
             </div>
         );
