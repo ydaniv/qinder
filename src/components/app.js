@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import {Router} from 'preact-router';
 
 import Header from './header';
-import Albums from './albums';
+import Galleries from './galleries';
 import Album from './album';
 import Backend from '../lib/backends/drive';
 import config from './config';
@@ -38,8 +38,8 @@ export default class App extends Component {
                 <Header logged_in={this.state.logged_in}
                         signIn={this.drive_client.signIn}/>
                 <Router onChange={this.handleRoute}>
-                    <Albums path="/"
-                            folders={this.state.files}/>
+                    <Galleries path="/"
+                               folders={this.state.files}/>
                     <Album path="/:folder_id/"
                            backend={this.drive_client}/>
                 </Router>
