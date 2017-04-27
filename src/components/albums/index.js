@@ -1,7 +1,7 @@
 import {h, Component} from 'preact';
 import Folder from '../folder';
 
-export default class Galleries extends Component {
+export default class Albums extends Component {
     render (props, state) {
 
         let folders = (props.folders || []).map((folder, i) => {
@@ -14,8 +14,8 @@ export default class Galleries extends Component {
         });
 
         return (
-            <div className="view" id="galleries">
-                <h1>Galleries</h1>
+            <div className="view" id="albums">
+                <h1>Albums</h1>
                 <div className="view-list">
                     {folders}
                 </div>

@@ -3,7 +3,7 @@ import {h, Component} from 'preact';
 import Folder from '../folder';
 import Thumbnail from '../thumbnail';
 
-export default class Gallery extends Component {
+export default class Album extends Component {
 
     constructor (props) {
         super(props);
@@ -40,7 +40,7 @@ export default class Gallery extends Component {
 
     render (props, state) {
         return (
-            <div className="view" id="gallery">
+            <div className="view" id="album">
                 <h1>{props.folder_id}</h1>
                 <div className="view-list">
                     {state.files.map((file, i) => {

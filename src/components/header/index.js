@@ -18,7 +18,7 @@ export default class Header extends Component {
             <header className="header">
                 <h1>Qinder</h1>
                 <nav>
-                    <Link href="/">Galleries</Link>
+                    <Link href="/">Albums</Link>
                 </nav>
                 {auth_button}
             </header>
