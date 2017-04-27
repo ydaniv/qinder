@@ -13,11 +13,27 @@ export default class Gallery extends Component {
         };
     }
 
-    componentWillReceiveProps () {
-        let client = this.props.backend;
+    componentWillMount () {
+        this.folderChange(this.props);
+    }
 
+    componentWillReceiveProps (props) {
+        this.folderChange(props);
+    }
+
+    //TODO: refactor to a declarative form
+    folderChange (props) {
+        const folder = props.folder_id;
+
+        if ( folder !== this.last_folder_id ) {
+            this.last_folder_id = folder;
+            this.loadFiles(props.backend, folder);
+        }
+    }
+
+    loadFiles (client, folder) {
         client.ready.then(() => {
-            client.listFiles(this.props.folder_id)
+            client.listFiles(folder)
                 .then(files => this.setState({ files: files }));
         });
     }
@@ -43,4 +59,4 @@ export default class Gallery extends Component {
             </div>
         );
     }
-}
+};
