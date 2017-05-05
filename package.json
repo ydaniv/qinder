@@ -13,9 +13,9 @@
     "lint": "eslint {src,test}"
   },
   "keywords": [
-    "preact",
-    "boilerplate",
-    "webpack"
+    "photos",
+    "videos",
+    "sharing"
   ],
   "license": "GPL-3.0",
   "author": "Yehonatan Daniv <maggotfish@gmail.com>",
