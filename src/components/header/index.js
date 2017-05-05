@@ -2,6 +2,7 @@ import {h, Component} from 'preact';
 import {Link} from 'preact-router';
 
 export default class Header extends Component {
+
     render (props, state) {
         let auth_button = null;
 
@@ -19,6 +20,7 @@ export default class Header extends Component {
                 <h1>Qinder</h1>
                 <nav>
                     <Link href="/">Albums</Link>
+                    <button onClick={this.props.openAddGalleryModal}>Add</button>
                 </nav>
                 {auth_button}
             </header>
