@@ -95,6 +95,16 @@ export default class Backend {
     }
 
     /**
+     * Get file.
+     */
+    getFile (id, size=100) {
+        return gapi.client.drive.files.get({
+            fileId: id,
+            fields: 'id, name, iconLink, appProperties'
+        }).then(response => response.result);
+    }
+
+    /**
      * Get file list.
      */
     listFiles (folder, size=100) {
