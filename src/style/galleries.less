@@ -9,12 +9,16 @@
 .view-list {
     display: flex;
     flex-wrap: wrap;
+
+    figure {
+        height: 33vw;
+    }
 }
 
 .folder {
     flex: 1 0 33%;
-    margin: 0;
     width: 33%;
+    margin: 0;
 }
 
 .folder-caption {
@@ -24,6 +28,21 @@
 
 .thumbnail {
     flex: 1 0 33%;
-    margin: 0;
     width: 33%;
+    margin: 0;
+    background-image: linear-gradient(155deg, white, rebeccapurple);
+
+    a {
+        display: block;
+        opacity: 0;
+        max-width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        transition: opacity .5s;
+
+        &.show {
+            opacity: 1;
+        }
+    }
 }
