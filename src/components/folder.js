@@ -4,7 +4,7 @@ export default class Folder extends Component {
     render (props, state) {
         return (
             <figure key={props.id} className="folder">
-                <a href={`/${props.id}/`}>
+                <a href={`/album/${props.id}/`}>
                     <img src={props.iconLink}
                          alt={props.name}/>
                     <figcaption className="folder-caption ellipsis">{props.name}</figcaption>

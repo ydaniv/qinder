@@ -5,7 +5,10 @@ import Header from './header';
 import Galleries from './galleries';
 import Album from './album';
 import Backend from '../lib/backends/drive';
+import store from '../lib/utils/local-store';
 import config from './config';
+
+const GALLERIES_KEY = 'galleries';
 
 export default class App extends Component {
     constructor (props) {
@@ -15,11 +18,13 @@ export default class App extends Component {
         this.openAddGalleryModal = this.openAddGalleryModal.bind(this);
         this.closeAddGalleryModal = this.closeAddGalleryModal.bind(this);
 
+        let galleries = store.getItem(GALLERIES_KEY);
+
         this.state = {
             logged_in: false,
             isAddModalOpen: false,
             galleries: [],
-            files: []
+            files: galleries ? JSON.parse(galleries) : []
         };
 
         this.drive_client =  new Backend(config);
@@ -32,7 +37,11 @@ export default class App extends Component {
     loadGallery(galleryId) {
         this.drive_client.ready
             .then(() => this.drive_client.getFile(galleryId))
-            .then(folder => this.setState({ files: this.state.files.concat([folder]) }));
+            .then(folder => {
+                let files = this.state.files.concat([folder]);
+                store.setItem(GALLERIES_KEY, JSON.stringify(files));
+                this.setState({ files: files })
+            });
     }
 
     openAddGalleryModal () {
@@ -75,7 +84,7 @@ export default class App extends Component {
                                isAddModalOpen={this.state.isAddModalOpen}
                                closeAddModal={this.closeAddGalleryModal}
                                addGallery={this.addGallery}/>
-                    <Album path="/:folder_id/"
+                    <Album path="/album/:folder_id/"
                            backend={this.drive_client}/>
                 </Router>
             </div>
