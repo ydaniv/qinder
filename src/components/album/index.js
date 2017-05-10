@@ -2,6 +2,7 @@ import {h, Component} from 'preact';
 
 import Folder from '../folder';
 import Thumbnail from '../thumbnail';
+import ViewImageModal from './view-image-modal';
 
 export default class Album extends Component {
 
@@ -41,6 +42,9 @@ export default class Album extends Component {
     render (props, state) {
         return (
             <div className="view" id="album">
+                <ViewImageModal isOpen={props.isAddModalOpen}
+                                 close={props.closeAddModal}
+                                 backend={props.backend}/>
                 <h1>{props.folder_id}</h1>
                 <div className="view-list">
                     {state.files.map((file, i) => {

@@ -1,52 +1,41 @@
 import {h, Component} from 'preact';
 
-export default class AddGalleryModal extends Component {
+import Image from '../image';
+
+export default class ViewImageModal extends Component {
     constructor (props) {
         super(props);
 
-        this.close = this.close.bind(this);
-        this.approve = this.approve.bind(this);
-        this.setGallery = this.setGallery.bind(this);
-
         this.state = {
-            value: ''
+            file: {}
         };
-    }
 
-    setGallery (e) {
-        this.gallery = e.target.value;
-    }
-
-    approve () {
-        if ( this.gallery ) {
-            this.props.addGallery(this.gallery);
-            this.close();
-        }
-        else {
-            // alert error
-        }
+        this.close = this.close.bind(this);
     }
 
     close () {
-        this.gallery = null;
-        this.setState({
-            value: ''
-        });
         this.props.close();
+    }
+
+    loadImage () {
+        let backend = this.props.backend,
+            id = this.state.file.id;
+        backend.ready.then(() => {
+            backend.getFile(id)
+                .then((file) => { this.setState({ file: file })})
+        });
     }
 
     render (props, state) {
 
         return (
             <div className={'modal' + (this.props.isOpen ? '' : ' hidden')}
-                 id="add-gallery-modal">
-                <h1 className="modal-header">Add Gallery</h1>
+                 id="view-image-modal">
                 <div className="modal-content">
-                    <input type="text"
-                           value={this.state.value}
-                           onChange={this.setGallery}/>
-                    <button onClick={this.approve}>Add</button>
-                    <button onClick={this.close}>Cancel</button>
+                    <button onClick={this.close}>X</button>
+                    <Image id={state.file.id}
+                           name={state.file.name}
+                           src={state.file.thumbnailLink}/>
                 </div>
             </div>
         );
