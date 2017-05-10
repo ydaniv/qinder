@@ -87,7 +87,7 @@ export default class Backend {
         return gapi.client.drive.files.list({
             pageSize: size,
             fields: 'nextPageToken,' +
-                    ' files(id, name, iconLink, appProperties)',
+                    ' files(id, name, iconLink)',
             q: "mimeType='application/vnd.google-apps.folder'"
         }).then(response => {
             return response.result.files;
@@ -100,7 +100,7 @@ export default class Backend {
     getFile (id, size=100) {
         return gapi.client.drive.files.get({
             fileId: id,
-            fields: 'id, name, iconLink, appProperties'
+            fields: 'id, name, iconLink, webViewLink, webContentLink'
         }).then(response => response.result);
     }
 
@@ -111,7 +111,7 @@ export default class Backend {
         return gapi.client.drive.files.list({
             pageSize: size,
             fields: 'nextPageToken,' +
-                      ' files(id, name, mimeType, appProperties, iconLink, thumbnailLink)',
+                      ' files(id, name, mimeType, iconLink, thumbnailLink)',
             q: "'" + folder + "' in parents"
         }).then(response => {
             return response.result.files;
