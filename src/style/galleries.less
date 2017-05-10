@@ -9,15 +9,12 @@
 .view-list {
     display: flex;
     flex-wrap: wrap;
-
-    figure {
-        height: 33vw;
-    }
 }
 
 .folder {
     flex: 1 0 33%;
     width: 33%;
+    height: 33vw;
     margin: 0;
 }
 
@@ -28,14 +25,17 @@
 
 .thumbnail {
     flex: 1 0 33%;
-    width: 33%;
+    position: relative;
     margin: 0;
+    padding-top: 33%; // acts as height of 33% of parent's width
     background-image: linear-gradient(155deg, white, rebeccapurple);
 
     a {
-        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
         opacity: 0;
-        max-width: 100%;
+        width: 100%;
         height: 100%;
         background-repeat: no-repeat;
         background-size: cover;
