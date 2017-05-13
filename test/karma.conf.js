@@ -26,7 +26,7 @@ module.exports = function (config) {
             ]
         },
 
-        browsers: ['PhantomJS'],
+        browsers: ['Chromium'],
 
         files: [
             'test/browser/**/*.js'

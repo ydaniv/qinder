@@ -4,8 +4,8 @@ import {Router} from 'preact-router';
 import Header from './header';
 import Galleries from './galleries';
 import Album from './album';
-import Backend from '../lib/backends/drive';
-import store from '../lib/utils/local-store';
+import Backend from 'backends/drive';
+import store from 'utils/local-store';
 import config from './config';
 
 const GALLERIES_KEY = 'galleries';
