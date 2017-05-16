@@ -9,7 +9,7 @@ export default class Albums extends Component {
                 <Folder key={i.toString()}
                         id={folder.id}
                         name={folder.name}
-                        iconLink={folder.iconLink}/>
+                        icon={folder.icon}/>
             );
         });
 

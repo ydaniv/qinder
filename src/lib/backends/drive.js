@@ -1,13 +1,31 @@
+import BaseBackend from './base';
+
+/* For some reason GDrive links come with a param
+ that enforces a download which we need to remove */
+function removeExportParam (url) {
+    return url && url.replace(/export=[^&]+/, '');
+}
+
 /**
  * Client for Google Drive API.
  *
  * @class Backend
  * @see https://developers.google.com/drive/v3/web/quickstart/js
  */
-export default class Backend {
+export default class Backend extends BaseBackend {
+
     constructor (config) {
-        //super(config);
-        this.files = [];
+        super(config);
+
+        this.KEY_MAP = {
+            id: 'id',
+            name: 'name',
+            type: 'mimeType',
+            icon: 'iconLink',
+            thumbnail: 'thumbnailLink',
+            url: 'webViewLink',
+            src: o => removeExportParam(o['webContentLink'])
+        };
 
         // Client ID and API key from the Developer Console
         this.client_id = config.DRIVE_CLIENT_ID;
@@ -81,17 +99,13 @@ export default class Backend {
     }
 
     /**
-     * Get file list.
+     * Get file.
      */
-    listFolders (size=100) {
-        return gapi.client.drive.files.list({
-            pageSize: size,
-            fields: 'nextPageToken,' +
-                    ' files(id, name, iconLink)',
-            q: "mimeType='application/vnd.google-apps.folder'"
-        }).then(response => {
-            return response.result.files;
-        });
+    getFile (id) {
+        return gapi.client.drive.files.get({
+            fileId: id,
+            fields: 'id, name, iconLink, webViewLink, webContentLink'
+        }).then(response => this.parseFile(response.result));
     }
 
     /**
@@ -103,8 +117,6 @@ export default class Backend {
             fields: 'nextPageToken,' +
                       ' files(id, name, mimeType, iconLink, thumbnailLink, webContentLink)',
             q: "'" + folder + "' in parents"
-        }).then(response => {
-            return response.result.files;
-        });
+        }).then(response => this.parseList(response.result.files));
     }
 }

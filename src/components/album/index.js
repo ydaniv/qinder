@@ -67,16 +67,16 @@ export default class Album extends Component {
                 <h1>{props.folder_id}</h1>
                 <div className="view-list">
                     {state.files.map((file, i) => {
-                            return file.mimeType.startsWith('application/vnd') ?
+                            return file.type.startsWith('application/vnd') ?
                                 <Folder key={i.toString()}
                                         id={file.id}
                                         name={file.name}
-                                        iconLink={file.iconLink}/> :
+                                        icon={file.icon}/> :
                                 <Thumbnail key={i.toString()}
                                            id={file.id}
                                            name={file.name}
-                                           src={file.thumbnailLink}
-                                           url={file.webContentLink}
+                                           src={file.thumbnail}
+                                           url={file.src}
                                            click={this.openViewModal}/>;
                         }
                     )}

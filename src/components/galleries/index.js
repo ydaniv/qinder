@@ -10,7 +10,7 @@ export default class Galleries extends Component {
                 <Folder key={i.toString()}
                         id={folder.id}
                         name={folder.name}
-                        iconLink={folder.iconLink}/>
+                        icon={folder.icon}/>
             );
         });
 

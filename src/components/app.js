@@ -21,7 +21,7 @@ export default class App extends Component {
         let galleries = store.getItem(GALLERIES_KEY);
 
         this.state = {
-            logged_in: false,
+            loggedIn: false,
             isAddModalOpen: false,
             galleries: [],
             files: galleries ? JSON.parse(galleries) : []
@@ -29,8 +29,8 @@ export default class App extends Component {
 
         this.drive_client =  new Backend(config);
 
-        this.drive_client.ready.then((signed_in) => {
-            this.setState({ logged_in: signed_in });
+        this.drive_client.ready.then((signedIn) => {
+            this.setState({ loggedIn: signedIn });
         });
     }
 
@@ -75,7 +75,7 @@ export default class App extends Component {
     render (props, state) {
         return (
             <div id="app">
-                <Header logged_in={this.state.logged_in}
+                <Header loggedIn={this.state.loggedIn}
                         signIn={this.drive_client.signIn}
                         openAddGalleryModal={this.openAddGalleryModal}/>
                 <Router onChange={this.handleRoute}>
