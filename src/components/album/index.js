@@ -10,8 +10,13 @@ export default class Album extends Component {
         super(props);
 
         this.state = {
-            files: []
+            files: [],
+            isViewModalOpen: false,
+            imageId: ''
         };
+
+        this.openViewModal = this.openViewModal.bind(this);
+        this.closeViewModal = this.closeViewModal.bind(this);
     }
 
     componentWillMount () {
@@ -32,6 +37,19 @@ export default class Album extends Component {
         }
     }
 
+    openViewModal (imageURL) {
+        this.setState({
+            isViewModalOpen: true,
+            imageURL: imageURL
+        });
+    }
+
+    closeViewModal () {
+        this.setState({
+            isViewModalOpen: false
+        });
+    }
+
     loadFiles (client, folder) {
         client.ready.then(() => {
             client.listFiles(folder)
@@ -42,9 +60,10 @@ export default class Album extends Component {
     render (props, state) {
         return (
             <div className="view" id="album">
-                <ViewImageModal isOpen={props.isAddModalOpen}
-                                 close={props.closeAddModal}
-                                 backend={props.backend}/>
+                <ViewImageModal isOpen={state.isViewModalOpen}
+                                close={this.closeViewModal}
+                                backend={props.backend}
+                                url={state.imageURL}/>
                 <h1>{props.folder_id}</h1>
                 <div className="view-list">
                     {state.files.map((file, i) => {
@@ -56,7 +75,9 @@ export default class Album extends Component {
                                 <Thumbnail key={i.toString()}
                                            id={file.id}
                                            name={file.name}
-                                           src={file.thumbnailLink}/>;
+                                           src={file.thumbnailLink}
+                                           url={file.webContentLink}
+                                           click={this.openViewModal}/>;
                         }
                     )}
                 </div>
