@@ -11,8 +11,7 @@ export default class Album extends Component {
 
         this.state = {
             files: [],
-            isViewModalOpen: false,
-            imageId: ''
+            isViewModalOpen: false
         };
 
         this.openViewModal = this.openViewModal.bind(this);
@@ -37,10 +36,12 @@ export default class Album extends Component {
         }
     }
 
-    openViewModal (imageURL) {
+    openViewModal (image) {
         this.setState({
             isViewModalOpen: true,
-            imageURL: imageURL
+            imageName: image.name,
+            imageURL: image.url,
+            imageDownload: image.download
         });
     }
 
@@ -63,7 +64,9 @@ export default class Album extends Component {
                 <ViewImageModal isOpen={state.isViewModalOpen}
                                 close={this.closeViewModal}
                                 backend={props.backend}
-                                url={state.imageURL}/>
+                                name={state.imageName}
+                                url={state.imageURL}
+                                download={state.imageDownload}/>
                 <h1>{props.folder_id}</h1>
                 <div className="view-list">
                     {state.files.map((file, i) => {
@@ -77,6 +80,7 @@ export default class Album extends Component {
                                            name={file.name}
                                            src={file.thumbnail}
                                            url={file.src}
+                                           download={file.download}
                                            click={this.openViewModal}/>;
                         }
                     )}

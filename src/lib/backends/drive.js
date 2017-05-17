@@ -24,7 +24,8 @@ export default class Backend extends BaseBackend {
             icon: 'iconLink',
             thumbnail: 'thumbnailLink',
             url: 'webViewLink',
-            src: o => removeExportParam(o['webContentLink'])
+            src: o => removeExportParam(o['webContentLink']),
+            download: 'webContentLink'
         };
 
         // Client ID and API key from the Developer Console

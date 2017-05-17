@@ -13,12 +13,14 @@ export default class ViewImageModal extends Component {
         this.props.close();
     }
     render (props, state) {
-
         return (
-            <div className={'modal' + (this.props.isOpen ? '' : ' hidden')}
+            <div className={'modal' + (props.isOpen ? '' : ' hidden')}
                  id="view-image-modal">
                 <div className="modal-content">
                     <button onClick={this.close}>X</button>
+                    <a className="button" href={props.download}
+                       download={props.name}
+                       target="_blank">D</a>
                     <Image src={props.url}/>
                 </div>
             </div>
