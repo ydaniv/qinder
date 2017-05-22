@@ -1,3 +1,17 @@
+@keyframes pulse {
+    0% {
+        transform: scale(.5, .5);
+    }
+
+    40% {
+        transform: scale(2, 2);
+    }
+
+    100% {
+        transform: scale(.5, .5);
+    }
+}
+
 #view-image-modal {
     position: fixed;
     left: 0;
@@ -6,25 +20,52 @@
     width: 100vw;
     margin: 0;
     padding: 0;
+    background-color: black;
 
-    figure {
+    .image {
+        position: relative;
         height: 100vh;
-        margin: 0;
-        background-size: contain;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-color: black;
+
+        figure {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            margin: 0;
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            transition: opacity .5s;
+        }
+
+        &:before {
+            content: '';
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: rebeccapurple;
+            border-radius: 50%;
+        }
+
+        &.show figure {
+            opacity: 1;
+        }
+
+        &.loading:before {
+            display: block;
+            animation: pulse 1s infinite;
+        }
     }
 
-    button {
+    .modal-buttons {
         position: absolute;
         left: 0;
         top: 0;
-    }
-
-    .button {
-        position: absolute;
-        top: 0;
-        left: 25px;
+        z-index: 1;
     }
 }

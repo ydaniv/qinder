@@ -16,10 +16,17 @@ export default class Image extends Component {
         }
     }
 
-    componentWillUpdate (nextProps) {
-        if ( nextProps.src !== this.lastImageSrc ) {
-            this.lastImageSrc = nextProps.src;
-            this.loadImage(nextProps.src);
+    componentDidUpdate (prevProps) {
+        let currentSrc = this.props.src;
+
+        if ( currentSrc !== this.lastImageSrc ) {
+            this.lastImageSrc = currentSrc;
+
+            this.setState({
+                show: false
+            });
+
+            this.loadImage(currentSrc);
         }
     }
 
@@ -41,7 +48,8 @@ export default class Image extends Component {
     }
 
     render (props, state) {
-        return <figure className={'image' + (state.show ? ' show' : '')}
-                       style={`background-image: url("${state.url}")`}></figure>;
+        return <div className={'image ' + (state.show ? 'show' : 'loading')}>
+            <figure style={`background-image: url("${state.url}")`}></figure>
+        </div>;
     }
 }
