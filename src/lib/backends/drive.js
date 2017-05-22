@@ -125,8 +125,8 @@ export default class Backend extends BaseBackend {
         return gapi.client.drive.files.update({
             fileId: id,
             resource: {
-
+                starred: true
             }
-        })
+        }).then((...c) => {console.log(c);}, (...c) => {console.log(c);});
     }
 }

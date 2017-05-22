@@ -11,6 +11,7 @@ export default class Thumbnail extends Image {
 
     clickHandler (e) {
         this.props.click && this.props.click({
+            id: this.props.id,
             name: this.props.name,
             url: this.props.url,
             download: this.props.download

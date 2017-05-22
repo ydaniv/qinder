@@ -39,6 +39,7 @@ export default class Album extends Component {
     openViewModal (image) {
         this.setState({
             isViewModalOpen: true,
+            imageId: image.id,
             imageName: image.name,
             imageURL: image.url,
             imageDownload: image.download

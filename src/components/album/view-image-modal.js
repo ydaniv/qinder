@@ -28,7 +28,8 @@ export default class ViewImageModal extends Component {
                         <a className="button" href={props.download}
                            download={props.name}
                            target="_blank">D</a>
-                        <button onClick={this.star}>S</button>
+                        <button className={(props.starred ? 'starred' : '')}
+                                onClick={this.star}>S</button>
                     </div>
                     <Image src={props.url}/>
                 </div>
