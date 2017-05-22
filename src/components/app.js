@@ -77,6 +77,7 @@ export default class App extends Component {
             <div id="app">
                 <Header loggedIn={this.state.loggedIn}
                         signIn={this.drive_client.signIn}
+                        signOut={this.drive_client.signOut}
                         openAddGalleryModal={this.openAddGalleryModal}/>
                 <Router onChange={this.handleRoute}>
                     <Galleries path="/"

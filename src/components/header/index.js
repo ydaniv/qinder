@@ -7,7 +7,9 @@ export default class Header extends Component {
         let auth_button = null;
 
         if ( props.loggedIn ) {
-            auth_button = <button className="button" id="sign-out-button">Sign out</button>;
+            auth_button = <button className="button"
+                                  id="sign-out-button"
+                                  onClick={this.props.signOut}>Sign out</button>;
         }
         else {
             auth_button = <button className="button"
