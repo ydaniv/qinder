@@ -64,6 +64,7 @@ export default class Album extends Component {
                 <ViewImageModal isOpen={state.isViewModalOpen}
                                 close={this.closeViewModal}
                                 backend={props.backend}
+                                id={state.imageId}
                                 name={state.imageName}
                                 url={state.imageURL}
                                 download={state.imageDownload}/>

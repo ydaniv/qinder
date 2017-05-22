@@ -105,7 +105,7 @@ export default class Backend extends BaseBackend {
     getFile (id) {
         return gapi.client.drive.files.get({
             fileId: id,
-            fields: 'id, name, iconLink, webViewLink, webContentLink'
+            fields: 'id, name, iconLink, webViewLink, webContentLink, starred'
         }).then(response => this.parseFile(response.result));
     }
 
@@ -116,8 +116,17 @@ export default class Backend extends BaseBackend {
         return gapi.client.drive.files.list({
             pageSize: size,
             fields: 'nextPageToken,' +
-                      ' files(id, name, mimeType, iconLink, thumbnailLink, webContentLink)',
+                      ' files(id, name, mimeType, iconLink, thumbnailLink, webContentLink, starred)',
             q: "'" + folder + "' in parents"
         }).then(response => this.parseList(response.result.files));
+    }
+
+    starFile (id) {
+        return gapi.client.drive.files.update({
+            fileId: id,
+            resource: {
+
+            }
+        })
     }
 }
